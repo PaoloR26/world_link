@@ -1,0 +1,55 @@
+---
+Mi repositorio: https://github.com/PaoloR26/world_link
+---
+Grafico1
+```{r}
+sf::st_layers("https://github.com/PaoloR26/world_link/raw/main/worldMap.gpkg")
+countries=read_sf("https://github.com/PaoloR26/world_link/raw/main/worldMap.gpkg",layer="countryBorders")
+rivers=read_sf("https://github.com/PaoloR26/world_link/raw/main/worldMap.gpkg",layer="riverLines")
+cities=read_sf("https://github.com/PaoloR26/world_link/raw/main/worldMap.gpkg",layer="cityPoints")
+baseLayer=ggplot(data=countries)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=rivers, color='blue') + geom_sf(data=cities, color='red') 
+final
+```
+Grafico2
+```{r}
+sf::st_layers("https://github.com/PaoloR26/world_link/raw/main/peruMap.gpkg")
+peru=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap.gpkg",layer="border")
+peru_rivers=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap.gpkg",layer="rivers")
+peru_cities=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap.gpkg",layer="cities")
+baseLayer=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=peru_rivers, color='blue') + geom_sf(data=peru_cities, color='red') 
+final
+```
+Grafico3
+```{r}
+sf::st_layers("https://github.com/PaoloR26/world_link/raw/main/peruMap_5389.gpkg")
+peru=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap_5389.gpkg",layer="border")
+peru_rivers=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap_5389.gpkg",layer="rivers")
+peru_cities=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap_5389.gpkg",layer="cities")
+peru_air=read_sf("https://github.com/PaoloR26/world_link/raw/main/peruMap_5389.gpkg",layer="airports")
+baseLayer=ggplot(data=peru)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=peru_rivers, color='blue')  + geom_sf(data=peru_air, color='black') + geom_sf(data=peru_cities, color='red') +
+  coord_sf(datum = st_crs(peru))
+final
+```
+Grafico4
+```{r}
+sf::st_layers("https://github.com/PaoloR26/world_link/raw/main/America_2023_prjed.gpkg")
+ame=read_sf("https://github.com/PaoloR26/world_link/raw/main/America_2023_prjed.gpkg",layer="countries")
+ame_cen=read_sf("https://github.com/PaoloR26/world_link/raw/main/America_2023_prjed.gpkg",layer="centroids")
+library(ggplot2)
+baseLayer=ggplot(data=ame)  + geom_sf(fill='grey90') + theme_light() 
+final=baseLayer + geom_sf(data=ame_cen,aes(color=Total_ei5_cat),size=2+ame_cen$Total_ei5) +
+    guides(size=NULL) +
+  coord_sf(datum = st_crs(ame))
+
+final
+```
+Grafico5(Challenge)
+```{r}
+sf::st_layers("https://github.com/PaoloR26/world_link/raw/main/fragilitymap.gpkg")
+fragil=read_sf("https://github.com/PaoloR26/world_link/raw/main/fragilitymap.gpkg",layer="after10")
+ggplot(data=fragil) + theme_light() +
+    geom_sf(aes(fill = after10), color=NA)
+```
